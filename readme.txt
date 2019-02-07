@@ -7,3 +7,13 @@ Git has a mutable index called stage.
 Git tracks changes.
 
 Git change 1.
+
+happy new year.
+
+...
+
+
+
+
+
+
