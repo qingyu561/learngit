@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 /**
  * 函数名称:bubbleSort
  * 函数描述:冒泡排序
@@ -119,4 +121,45 @@ void quickSort(int *arr, int left, int right){
     }
     quickSort(arr, left, p-1);
     quickSort(arr, p+1, right);
+}
+
+/**
+ * 函数名称:mergeSort
+ * 函数描述:归并排序
+ * 编写时间:2019-06-10
+ * 作者: qingyu
+ */
+void __merge(int* arr, int s, int q, int e){
+    int i,j,k,*tmp;
+    tmp = (int*)malloc((e - s + 1) * sizeof(int));
+    if (!tmp)
+        abort();
+    for(i=s,j=q+1,k=0; i<=q && j<=e;){
+        if (arr[i] <= arr[j])
+        {
+            tmp[k++] = arr[i++];
+        }else{
+            tmp[k++] = arr[j++];
+        }
+    }
+    if (i==q+1){
+        for(;j <= e;)
+            tmp[k++] = arr[j++];           
+    }else{
+        for(;i <= q;)
+            tmp[k++] = arr[i++];
+    }
+    memcpy(arr+s, tmp, (e-s+1)*sizeof(int));
+    free(tmp);
+}
+void __mergeSort(int* arr, int s, int e){
+    if (s >= e)
+        return;
+    int q = (s + e)/2;
+    __mergeSort(arr, s, q);
+    __mergeSort(arr, q+1, e);
+    __merge(arr, s, q, e);
+}
+void mergeSort(int* arr, int size){
+    __mergeSort(arr, 0, size -1);
 }
